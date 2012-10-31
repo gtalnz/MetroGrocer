@@ -11,13 +11,45 @@
 
     <!-- MetroGrocer references -->
     <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/viewmodel.js"></script>
     <script src="/js/default.js"></script>
 </head>
 <body>
     <div id="contentGrid">
-        <div id="leftContainer" class="gridLeft"><h1 class="win-type-xx-large">Left Container</h1></div>
-        <div id="topRightContainer" class="gridRight"><h1 class="win-type-xx-large">Top Right Container</h1></div>
-        <div id="bottomRightContainer" class="gridRight"><h1 class="win-type-xx-large">Bottom Right Container</h1></div>
+        <div id="leftContainer" class="gridLeft">
+            <h1 class="win-type-xx-large">Grocery List</h1>
+            
+            <table id="listTable" class="type-table-header">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th class="itemName">Item</th>
+                        <th>Store</th>
+                    </tr>
+                </thead>
+                <tbody id="itemBody"></tbody>
+            </table>
+        </div>
+
+        <div id="topRightContainer" class="gridRight">
+            <h1 class="win-type-xx-large">Top Right Container</h1>
+        </div>
+
+        <div id="bottomRightContainer" class="gridRight">
+            <h1 class="win-type-xx-large">Bottom Right Container</h1>
+        </div>
     </div>
+
+    <!--template for grocery list items-->
+    <table>
+        <tbody id="itemTemplate" data-win-control="WinJS.Binding.Template">
+            <tr class="groceryItem">
+                <td data-win-bind="innerText: quantity"></td>
+                <td data-win-bind="innerText: item"></td>
+                <td data-win-bind="innerText: store"></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--end of template for grocery list items-->
 </body>
 </html>

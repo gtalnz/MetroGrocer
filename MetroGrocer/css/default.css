@@ -28,6 +28,7 @@
 #topRightContainer {
     -ms-grid-column: 2;
     -ms-grid-row: 1;
+    background-color: #808080;
 }
 
 #bottomRightContainer {

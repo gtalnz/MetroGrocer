@@ -11,24 +11,48 @@
     app.onactivated = function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
-                // TODO: This application has been newly launched. Initialize
-                // your application here.
+                performInitialSetup(args);
             } else {
-                // TODO: This application has been reactivated from suspension.
-                // Restore application state here.
+                performRestore(args);
             }
             args.setPromise(WinJS.UI.processAll());
         }
     };
 
     app.oncheckpoint = function (args) {
-        // TODO: This application is about to be suspended. Save any state
-        // that needs to persist across suspensions here. You might use the
-        // WinJS.Application.sessionState object, which is automatically
-        // saved and restored across suspension. If you need to complete an
-        // asynchronous operation before your application is suspended, call
-        // args.setPromise().
+        performSuspend(args);
     };
 
     app.start();
+
+    function performInitialSetup(args) {
+
+        WinJS.Utilities.query('button').listen("click", function (e) {
+            if (this.id == "addItemButton") {
+                ViewModel.UserData.addItem("Ice Cream", 1, "Vanilla", "Walmart");
+            } else {
+                ViewModel.UserData.getItems().pop();
+            }
+        });
+
+        var setValue = function () {
+            var list = ViewModel.UserData.getItems();
+            document.getElementById("listInfo").innerText = list.getAt(list.length - 1).item;
+        };
+
+        var eventTypes = ["itemchanged", "iteminserted", "itemmoved", "itemremoved"];
+        eventTypes.forEach(function (type) {
+            ViewModel.UserData.getItems().addEventListener(type, setValue);
+        });
+        setValue();
+    }
+
+    function performRestore(args) {
+        // TODO
+    }
+
+    function performSuspend(args) {
+        // TODO
+    }
+
 })();
